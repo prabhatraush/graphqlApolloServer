@@ -9,7 +9,7 @@ A nodeJS project uses graphQL Apollo server and mongoDb to store and retrieve da
 npm install
 ```
 
-# run app
+# run Server
 ```
 npm start
 ```
