@@ -4,8 +4,13 @@ import { resolvers} from "./graphql/resolvers";
 import app from './express';
 
 const server = new ApolloServer({
-    typeDefs,
-    resolvers
+  typeDefs: typeDefs,
+  resolvers:  resolvers,
+  context: (req) => {
+    return {
+      ...req
+    }
+  }
 });
 
 server.applyMiddleware({ app });

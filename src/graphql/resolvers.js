@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import User from "./../models/users";
+import Post from './../models/posts';
 import jwt from "jsonwebtoken";
 
 
@@ -43,6 +44,35 @@ export const resolvers = {
               );
 
               return {token: token, tokenExpire: 1 };
+        },
+
+        addPost: async (root, args, ctx, info) =>{
+            console.log(ctx);
+            const Authorization = ctx.req.get("Authorization");
+            console.log(Authorization);
+            const token = Authorization? Authorization.replace("Bearer ", "") :  new AuthenticationError("Auth Token Missing");
+
+            const verifiedPlayLoad = await jwt.verify(token, 'secretkey');
+            if(!verifiedPlayLoad) throw new AuthenticationError("Unauthenticated");
+
+            const payload = await jwt.decode(token);
+            console.log(payload);
+
+            const post = new Post({
+                title: args.title,
+                description: args.description,
+                creator: payload.id,
+            });
+
+            const result = await post.save();
+            const creator = await User.findById(req.userId);
+
+            if (!creator) {
+                throw new Error('User not found.');
+            }
+            await creator.save();
+
+            return post;
         }
     }
 };
