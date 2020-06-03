@@ -15,8 +15,6 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app });
 
-
-
 app.get('/test', function (req, res) {
   res.send('trying to heroku!')
 })
