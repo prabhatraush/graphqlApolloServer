@@ -27,7 +27,7 @@ server.applyMiddleware({
   app: _express["default"]
 });
 
-_express["default"].get('/test', function (req, res) {
+_express["default"].get('/', function (req, res) {
   res.send('trying to heroku!');
 });
 

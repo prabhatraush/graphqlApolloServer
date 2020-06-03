@@ -30,9 +30,6 @@ var app = (0, _express["default"])();
 app.use((0, _cookieParser["default"])()); // Serve only the static files form the dist directory
 
 app.use(_express["default"]["static"]("./../build"));
-app.get('/*', function (req, res) {
-  res.sendFile(_path["default"].join(__dirname, './../build/index.js'));
-});
 var _default = app;
 exports["default"] = _default;
 //# sourceMappingURL=express.js.map
