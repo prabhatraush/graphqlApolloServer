@@ -11,6 +11,8 @@ var _users = _interopRequireDefault(require("./../models/users"));
 
 var _posts = _interopRequireDefault(require("./../models/posts"));
 
+var _contactus = _interopRequireDefault(require("./../models/contactus"));
+
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -245,6 +247,36 @@ var resolvers = {
       }
 
       return addPost;
+    }(),
+    addContact: function () {
+      var _addContact = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(root, args, ctx, info) {
+        var contact, result;
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                contact = new _contactus["default"]({
+                  name: args.name,
+                  mobile: args.mobile,
+                  email: args.email,
+                  description: args.description
+                });
+                result = contact.save();
+                return _context5.abrupt("return", result);
+
+              case 3:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }));
+
+      function addContact(_x13, _x14, _x15, _x16) {
+        return _addContact.apply(this, arguments);
+      }
+
+      return addContact;
     }()
   }
 };

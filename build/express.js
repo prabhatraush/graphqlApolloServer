@@ -27,9 +27,7 @@ _mongoose["default"].connect(url, {
 });
 
 var app = (0, _express["default"])();
-app.use((0, _cookieParser["default"])()); // Serve only the static files form the dist directory
-//app.use(express.static("./../build"));
-
+app.use((0, _cookieParser["default"])());
 var _default = app;
 exports["default"] = _default;
 //# sourceMappingURL=express.js.map

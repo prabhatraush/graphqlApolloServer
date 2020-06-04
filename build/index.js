@@ -30,7 +30,7 @@ server.applyMiddleware({
 });
 
 _express["default"].get('/', function (req, res) {
-  res.send('trying to heroku!');
+  res.send('Welcome to this system!');
 });
 
 _express["default"].listen({

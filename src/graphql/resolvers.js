@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import User from "./../models/users";
 import Post from './../models/posts';
+import ContactUs from './../models/contactus';
 import jwt from "jsonwebtoken";
 require("@babel/polyfill");
 
@@ -73,6 +74,18 @@ export const resolvers = {
             await creator.save();
 
             return post;
+        },
+
+        addContact: async (root, args, ctx, info) =>{
+            const contact = new ContactUs({
+                name: args.name,
+                mobile: args.mobile,
+                email: args.email,
+                description: args.description
+            })
+            const result = contact.save();
+
+            return result;
         }
     }
 };

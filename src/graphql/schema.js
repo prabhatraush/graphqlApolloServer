@@ -21,6 +21,14 @@ export const typeDefs = gql`
     creator: User!
   }
 
+  type ContactUs {
+    _id: ID!
+    name: String!
+    mobile: String!
+    email: String!
+    description: String!
+  }
+
   type AuthData {
       token: String!
       tokenExpire: Int!
@@ -30,6 +38,7 @@ export const typeDefs = gql`
       signup(name: String, email: String, password: String): User
       login(email: String, password: String): AuthData
       addPost(title: String, description: String): Post
+      addContact(name: String, mobile: String, email: String, description: String): ContactUs
   }
 
 `;
