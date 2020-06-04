@@ -3,6 +3,7 @@ import { typeDefs } from "./graphql/schema";
 import { resolvers} from "./graphql/resolvers";
 import app from './express';
 
+
 const server = new ApolloServer({
   typeDefs: typeDefs,
   resolvers:  resolvers,

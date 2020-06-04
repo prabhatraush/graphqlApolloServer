@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import User from "./../models/users";
 import Post from './../models/posts';
 import jwt from "jsonwebtoken";
-require("babel/polyfill");
+require("@babel/polyfill");
 
 export const resolvers = {
     Query:{
