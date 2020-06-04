@@ -11,5 +11,6 @@ npm install
 
 # run Server
 ```
-npm start
+npm run build
+npm run start
 ```
