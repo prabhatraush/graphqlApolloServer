@@ -13,6 +13,6 @@ const app = express();
 app.use(cookieParser());
 
 // Serve only the static files form the dist directory
-app.use(express.static("./../build"));
+//app.use(express.static("./../build"));
 
  export default app;
