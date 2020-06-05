@@ -1,7 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
-import path from "path";
+import cors from "cors";
 
 var dotenv = require('dotenv');
 dotenv.config();
@@ -11,5 +11,6 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useCrea
 const app = express();
 
 app.use(cookieParser());
+app.use(cors());
 
  export default app;

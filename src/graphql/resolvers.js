@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import User from "./../models/users";
 import Post from './../models/posts';
-import ContactUs from './../models/contactus';
+import Contact from './../models/contactus';
 import jwt from "jsonwebtoken";
 require("@babel/polyfill");
 
@@ -11,6 +11,10 @@ export const resolvers = {
             const users = await User.find({});
             console.log(users.name);
             return users;
+        },
+        getContact : async () =>{
+            const contact = await Contact.find({});
+            return contact; 
         }
     },
     Mutation:{
@@ -77,7 +81,7 @@ export const resolvers = {
         },
 
         addContact: async (root, args, ctx, info) =>{
-            const contact = new ContactUs({
+            const contact = new Contact({
                 name: args.name,
                 mobile: args.mobile,
                 email: args.email,

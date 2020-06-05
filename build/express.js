@@ -11,7 +11,7 @@ var _cookieParser = _interopRequireDefault(require("cookie-parser"));
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
-var _path = _interopRequireDefault(require("path"));
+var _cors = _interopRequireDefault(require("cors"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -28,6 +28,7 @@ _mongoose["default"].connect(url, {
 
 var app = (0, _express["default"])();
 app.use((0, _cookieParser["default"])());
+app.use((0, _cors["default"])());
 var _default = app;
 exports["default"] = _default;
 //# sourceMappingURL=express.js.map

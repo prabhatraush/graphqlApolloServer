@@ -53,50 +53,22 @@ var resolvers = {
       }
 
       return user;
-    }()
-  },
-  Mutation: {
-    signup: function () {
-      var _signup = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(root, args, ctx, info) {
-        var existUser, hashPassword, user, result;
+    }(),
+    getContact: function () {
+      var _getContact = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        var contact;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _users["default"].findOne({
-                  email: args.email
-                });
+                return _contactus["default"].find({});
 
               case 2:
-                existUser = _context2.sent;
+                contact = _context2.sent;
+                return _context2.abrupt("return", contact);
 
-                if (!existUser) {
-                  _context2.next = 5;
-                  break;
-                }
-
-                throw new Error('User exists already.');
-
-              case 5:
-                _context2.next = 7;
-                return _bcrypt["default"].hash(args.password, 12);
-
-              case 7:
-                hashPassword = _context2.sent;
-                user = new _users["default"]({
-                  name: args.name,
-                  email: args.email,
-                  password: hashPassword
-                });
-                _context2.next = 11;
-                return user.save();
-
-              case 11:
-                result = _context2.sent;
-                return _context2.abrupt("return", result);
-
-              case 13:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -104,15 +76,17 @@ var resolvers = {
         }, _callee2);
       }));
 
-      function signup(_x, _x2, _x3, _x4) {
-        return _signup.apply(this, arguments);
+      function getContact() {
+        return _getContact.apply(this, arguments);
       }
 
-      return signup;
-    }(),
-    login: function () {
-      var _login = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(root, args, ctx, info) {
-        var user, pwdMatch, token;
+      return getContact;
+    }()
+  },
+  Mutation: {
+    signup: function () {
+      var _signup = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(root, args, ctx, info) {
+        var existUser, hashPassword, user, result;
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -123,25 +97,79 @@ var resolvers = {
                 });
 
               case 2:
-                user = _context3.sent;
+                existUser = _context3.sent;
+
+                if (!existUser) {
+                  _context3.next = 5;
+                  break;
+                }
+
+                throw new Error('User exists already.');
+
+              case 5:
+                _context3.next = 7;
+                return _bcrypt["default"].hash(args.password, 12);
+
+              case 7:
+                hashPassword = _context3.sent;
+                user = new _users["default"]({
+                  name: args.name,
+                  email: args.email,
+                  password: hashPassword
+                });
+                _context3.next = 11;
+                return user.save();
+
+              case 11:
+                result = _context3.sent;
+                return _context3.abrupt("return", result);
+
+              case 13:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      function signup(_x, _x2, _x3, _x4) {
+        return _signup.apply(this, arguments);
+      }
+
+      return signup;
+    }(),
+    login: function () {
+      var _login = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(root, args, ctx, info) {
+        var user, pwdMatch, token;
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return _users["default"].findOne({
+                  email: args.email
+                });
+
+              case 2:
+                user = _context4.sent;
 
                 if (user) {
-                  _context3.next = 5;
+                  _context4.next = 5;
                   break;
                 }
 
                 throw new Error('User does not exist!');
 
               case 5:
-                _context3.next = 7;
+                _context4.next = 7;
                 return _bcrypt["default"].compare(args.password, user.password);
 
               case 7:
-                pwdMatch = _context3.sent;
+                pwdMatch = _context4.sent;
                 console.log(pwdMatch, args.password);
 
                 if (pwdMatch) {
-                  _context3.next = 11;
+                  _context4.next = 11;
                   break;
                 }
 
@@ -154,17 +182,17 @@ var resolvers = {
                 }, 'secretkey', {
                   expiresIn: '1h'
                 });
-                return _context3.abrupt("return", {
+                return _context4.abrupt("return", {
                   token: token,
                   tokenExpire: 1
                 });
 
               case 13:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3);
+        }, _callee4);
       }));
 
       function login(_x5, _x6, _x7, _x8) {
@@ -174,72 +202,72 @@ var resolvers = {
       return login;
     }(),
     addPost: function () {
-      var _addPost = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(root, args, ctx, info) {
+      var _addPost = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(root, args, ctx, info) {
         var Authorization, token, verifiedPlayLoad, payload, post, result, creator;
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 console.log(ctx);
                 Authorization = ctx.req.get("Authorization");
                 console.log(Authorization);
                 token = Authorization ? Authorization.replace("Bearer ", "") : new AuthenticationError("Auth Token Missing");
-                _context4.next = 6;
+                _context5.next = 6;
                 return _jsonwebtoken["default"].verify(token, 'secretkey');
 
               case 6:
-                verifiedPlayLoad = _context4.sent;
+                verifiedPlayLoad = _context5.sent;
 
                 if (verifiedPlayLoad) {
-                  _context4.next = 9;
+                  _context5.next = 9;
                   break;
                 }
 
                 throw new AuthenticationError("Unauthenticated");
 
               case 9:
-                _context4.next = 11;
+                _context5.next = 11;
                 return _jsonwebtoken["default"].decode(token);
 
               case 11:
-                payload = _context4.sent;
+                payload = _context5.sent;
                 console.log(payload);
                 post = new _posts["default"]({
                   title: args.title,
                   description: args.description,
                   creator: payload.id
                 });
-                _context4.next = 16;
+                _context5.next = 16;
                 return post.save();
 
               case 16:
-                result = _context4.sent;
-                _context4.next = 19;
+                result = _context5.sent;
+                _context5.next = 19;
                 return _users["default"].findById(req.userId);
 
               case 19:
-                creator = _context4.sent;
+                creator = _context5.sent;
 
                 if (creator) {
-                  _context4.next = 22;
+                  _context5.next = 22;
                   break;
                 }
 
                 throw new Error('User not found.');
 
               case 22:
-                _context4.next = 24;
+                _context5.next = 24;
                 return creator.save();
 
               case 24:
-                return _context4.abrupt("return", post);
+                return _context5.abrupt("return", post);
 
               case 25:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4);
+        }, _callee5);
       }));
 
       function addPost(_x9, _x10, _x11, _x12) {
@@ -249,11 +277,11 @@ var resolvers = {
       return addPost;
     }(),
     addContact: function () {
-      var _addContact = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(root, args, ctx, info) {
+      var _addContact = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(root, args, ctx, info) {
         var contact, result;
-        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        return regeneratorRuntime.wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
                 contact = new _contactus["default"]({
                   name: args.name,
@@ -262,14 +290,14 @@ var resolvers = {
                   description: args.description
                 });
                 result = contact.save();
-                return _context5.abrupt("return", result);
+                return _context6.abrupt("return", result);
 
               case 3:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5);
+        }, _callee6);
       }));
 
       function addContact(_x13, _x14, _x15, _x16) {

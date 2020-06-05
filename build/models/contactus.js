@@ -1,10 +1,8 @@
 "use strict";
 
-var _mongoose = _interopRequireDefault(require("mongoose"));
+var mongoose = require('mongoose');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var Schema = _mongoose["default"].Schema;
+var Schema = mongoose.Schema;
 var contactSchema = new Schema({
   name: {
     type: String,
@@ -23,8 +21,6 @@ var contactSchema = new Schema({
     required: true
   }
 });
-
-var Contact = _mongoose["default"].model('ContactUs', contactSchema);
-
+var Contact = mongoose.model('ContactUs', contactSchema);
 module.exports = Contact;
 //# sourceMappingURL=contactus.js.map
